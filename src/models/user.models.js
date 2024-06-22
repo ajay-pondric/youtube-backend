@@ -25,11 +25,11 @@ const userSchema = new Schema({
     index: true
   },
   avatar: {
-    type: string, //cloudnery
+    type: String, //cloudnery
     required: true,
   },
   coverImage: {
-    type: string,
+    type: String,
   },
   watchHistory: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -47,7 +47,7 @@ const userSchema = new Schema({
 
 userSchema.pre('save', async function (next) {
   try{
-    if(!this.modified('password')) return next()
+    if(!this.isModified('password')) return next()
     this.password = await bcrypt.hash(this.password, 10);
     next()
   } catch (error) {
